@@ -1,0 +1,468 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html class="no-js"> 
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>SAS FAT TO SLIM</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FREEHTML5.CO" />
+	
+ 
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<link
+      rel="icon"
+      type="image/x-icon"
+      href='{% static "images/logo.jpg" %}'
+    /> 
+
+    <!-- Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet" />
+
+    <!-- Custom styles -->
+    <link href='{% static "css/styles.css" %}' rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href='{% static "favicon.ico" %}'>
+
+	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic|Merriweather:300,400italic,300italic,400,700italic' rel='stylesheet' type='text/css'>
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href='{% static "css/animate.css" %}'>
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href='{% static "css/icomoon.css" %}'>
+	<!-- Simple Line Icons -->
+	<link rel="stylesheet" href='{% static "css/simple-line-icons.css" %}'>
+	<!-- Datetimepicker -->
+	<link rel="stylesheet" href='{% static "css/bootstrap-datetimepicker.min.css" %}'>
+	<!-- Flexslider -->
+	<link rel="stylesheet" href='{% static "css/flexslider.css" %}'>
+	<!-- Bootstrap  -->
+	{% comment %} <link rel="stylesheet" href='{% static "css/bootstrap.css" %}'> {% endcomment %}
+
+	<link rel="stylesheet" href='{% static "css/style.css" %}'>
+
+
+	<!-- Modernizr JS -->
+	<script src='{% static "js/modernizr-2.6.2.min.js" %}'></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+
+	<style>
+		/* styles.css */
+		.footer {
+			background-color: #343a40;
+			color: #fff;
+			padding: 50px 0;
+		}
+
+		.footer h4 {
+			color: #fff;
+		}
+
+		.footer p {
+			color: #ccc;
+		}
+
+		.social-icons li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.social-icons li a {
+			color: #fff;
+			font-size: 20px;
+		}
+
+		.social-icons li a:hover {
+			color: #bbb;
+		}
+              
+	</style>
+
+	<body>
+
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+			  <a class="navbar-brand" href="{% url 'index' %}">
+				<img src="{% static 'images/logo.jpg' %}" alt="" class="navbar-brand-image"> SAS Fat To Slim
+			  </a>
+			  <button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarColor"
+				aria-controls="navbarColor"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			  >
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+	  
+			  <div class="collapse navbar-collapse" id="navbarColor">
+				<ul class="navbar-nav me-auto">
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'food_list' %}">
+					  <i class="fas fa-list"></i> Food List
+					</a>
+				  </li>
+	  
+				  <li class="nav-item dropdown">
+					<a
+					  class="nav-link dropdown-toggle"
+					  data-bs-toggle="dropdown"
+					  href="#"
+					  role="button"
+					  aria-haspopup="true"
+					  aria-expanded="false"
+					>
+					  <i class="fas fa-pizza-slice"></i> Food Categories
+					</a>
+					<div class="dropdown-menu">
+					  {% for category in categories %}
+					  <a
+						class="dropdown-item"
+						href="{% url 'category_details_view' category.category_name %}"
+					  >
+						{{ category }} &nbsp;
+						<span class="badge bg-primary">
+						  {{ category.count_food_by_category }}
+						</span>
+					  </a>
+					  {% endfor %}
+					</div>
+				  </li>
+				  {% if user.is_authenticated %}
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'food_add' %}">
+					  <i class="far fa-plus-square"></i> Add Food Item
+					</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'food_log' %}">
+					  <i class="fas fa-utensils"></i> Food Log
+					</a>
+				  </li>
+				  {% endif %}
+				</ul>
+	   
+				<ul class="navbar-nav ms-auto">
+				  {% if user.is_authenticated %}
+				  <li class="nav-item dropdown">
+					<a
+					  class="nav-link dropdown-toggle"
+					  data-bs-toggle="dropdown"
+					  href="#"
+					  role="button"
+					  aria-haspopup="true"
+					  aria-expanded="false"
+					>
+					  <i class="fas fa-user fa-fw fa-lg"></i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-end">
+					  <a class="dropdown-item" href="{% url 'weight_log' %}">
+						<i class="fas fa-user"></i> User Profile
+					  </a>
+					  <div class="dropdown-divider"></div>
+					  <a class="dropdown-item" href="{% url 'logout' %}">
+						<i class="fas fa-sign-out-alt"></i> Log Out
+					  </a>
+					</div>
+				  </li>
+				  {% else %}
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'login' %}">
+					  <i class="fas fa-sign-in-alt"></i> Log In
+					</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="{% url 'register' %}">
+					  <i class="fas fa-user-plus"></i> Register
+					</a>
+				  </li>
+				  {% endif %}
+				</ul>
+			  </div>
+			</div>
+		  </nav>
+	  
+		  <style>
+			.navbar-brand-image {
+			  height: 70px; /* Adjust as needed */
+			  width: auto;
+			  margin-right: 5px;
+			}
+		  </style>
+
+	<div id="fh5co-container">
+		<div id="fh5co-home" class="js-fullheight" data-section="home">
+
+			<div class="flexslider">
+				
+				<div class="fh5co-overlay"></div>
+				<div class="fh5co-text">
+					<div class="container">
+						<div class="row">
+							<h1 class="font-white to-animate">SAS FAT TO SLIM</h1>
+						</div>
+					</div>
+				</div>
+			  	<ul class="slides">
+			   	<li style="background-image: url({% static 'images/one.jpeg' %});" data-stellar-background-ratio="0.5"></li>
+			   	<li style="background-image: url({% static 'images/two.jpg' %});" data-stellar-background-ratio="0.5"></li>
+			   	<li style="background-image: url({% static 'images/three.jpg' %});" data-stellar-background-ratio="0.5"></li>
+
+			  	</ul>
+
+			</div>
+			
+		</div>
+
+		
+
+		<div id="fh5co-about" data-section="about">
+			<div class="fh5co-2col fh5co-bg to-animate-2" style="background-image: url({% static 'images/side_img.jpeg' %})"></div>
+			<div class="fh5co-2col fh5co-text">
+				<h2 class="heading to-animate">About Us</h2>
+				<p class="to-animate"><span class="firstcharacter">W</span>e have a client base across the globe. Our diet is completely different from all other dietitians. The diet is more about Indian food and not at all about Brown Bread, Brown Rice or those fancy Salads The concept of ‘Eat & Sleep’ is a revolutionary concept, we believe in putting nutrients in the body rather than starving people out of food.
+					We make our clients to lose up to 7 kgs and 4 inches from various part of their body within one month, without exercises and without making them starve. Also, the diet has helped clients in controlling their diabetes. The diet containing nutrients rich food makes the clients energetic and fresh, unlike other dieticians who drain out energy by stopping food and starving people.</p>
+			</div>
+		</div>
+
+		{% comment %} <div id="fh5co-type" style="background-image: url({% static 'images/two.jpg' %});" data-stellar-background-ratio="0.5"> {% endcomment %}
+		<div id="fh5co-sayings">
+			<div class="container pb-3">
+				<div class="row to-animate">
+
+					<div class="flexslider">
+						<ul class="slides">
+							
+							<li>
+								<blockquote>
+									<p>&ldquo;You may rest easy as we have years of knowledge and medically-approved diet plans.&rdquo;</p>
+									<!-- <p class="quote-author">&mdash; Nathan Myhrvold</p> -->
+								</blockquote>
+							</li>
+							<li>
+								<blockquote>
+									<p>&ldquo;Forget bloating. Our weight loss programs will help you shed pounds and leave you feeling like a feather.&rdquo;</p>
+									<!-- <p class="quote-author">&mdash; Lev L. Spiro</p> -->
+								</blockquote>
+							</li>
+							<li>
+								<blockquote>
+									<p>&ldquo;It is about the mind-body connection.We offer our customers a wide range of packages.&rdquo;</p>
+									<!-- <p class="quote-author">&mdash; Julia Child</p> -->
+								</blockquote>
+							</li>
+							<li>
+								<blockquote>
+									<p>&ldquo;All of our meal plans are tailored to fit your specific dietary requirements and tastes.&rdquo;</p>
+									<!-- <p class="quote-author">&mdash; Josh Billings</p> -->
+								</blockquote>
+							</li>
+							
+							
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		
+
+		<div id="fh5co-type" style="background-image: url({% static 'images/two.jpg' %});" data-stellar-background-ratio="0.5">
+			<div class="fh5co-overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 to-animate">
+						<div class="fh5co-type">
+							<h3 class="with-icon icon-1">Strategies</h3>
+							<p>Discover the art of fueling your body right! From portion control to mindful eating, unlock the secrets of nutrition strategies to power your day.</p>
+						</div>
+					</div>
+					<div class="col-md-3 to-animate">
+						<div class="fh5co-type">
+							<h3 class="with-icon icon-2">Ayurveda</h3>
+							<p>Delve into the vibrant world of Indian herbs and spices, where every flavor tells a story! Spice up your life with turmeric's anti-inflammatory punch or cumin's digestive magic.</p>
+						</div>
+					</div>
+					<div class="col-md-3 to-animate">
+						<div class="fh5co-type">
+							<h3 class="with-icon icon-3">Protein</h3>
+							<p>Sculpt your body and nourish your soul with the perfect blend of diet and fitness. It's not just about shedding pounds; it's about embracing a lifestyle that radiates health and vitality!</p>
+						</div>
+					</div>
+					<div class="col-md-3 to-animate">
+						<div class="fh5co-type">
+							<h3 class="with-icon icon-4">Diet</h3>
+							<p>Mix it up, blend it in, and savor the harmony of a balanced diet. From leafy greens to lean proteins, indulge in a symphony of nutrients that dance together to keep you feeling fantastic!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+		
+	</div>
+
+
+	<div class="container mt-5">
+		<center><h1>Our Special Treatment for Diseases</h1>
+			<h3>Let's Cure With Our Expertise!</h3>
+		</center>
+		<br>
+
+		  <div class="row mx-8">
+			<div class="col-md-3 col-sm-6 item">
+			  <div class="card item-card card-block">
+			<img src="{% static 'images/c1.png' %}" alt="Photo of sunset">
+			<h5 class="card-title text-center mt-3 mb-3">Diabetes</h5>
+		  </div>
+			</div>
+			<div class="col-md-3 col-sm-6 item">
+			  <div class="card item-card card-block">
+			<img src="{% static 'images/c2.jpg' %}" alt="Photo of sunset">
+				<h5 class="card-title text-center mt-3 mb-3">Unhealthy Gut</h5>
+		  </div>
+			</div>
+			<div class="col-md-3 col-sm-6 item">
+			  <div class="card item-card card-block">
+			<img src="{% static 'images/c3.jpg' %}" alt="Photo of sunset">
+				<h5 class="card-title text-center mt-3 mb-3">Overweight</h5>
+		  </div>
+			</div>
+			<div class="col-md-3 col-sm-6 item">
+			  <div class="card item-card card-block">
+		
+			<img src="{% static 'images/c4.jpg' %}" alt="Photo of sunset">
+				<h5 class="card-title text-center mt-3 mb-3">Constipation</h5>
+		  </div>
+			</div>    
+		  </div>
+		  
+	</div>
+		
+	
+
+	<footer class="section bg-footer" style="background-color: #bedbbb; width: 100%">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="">
+                        <h6 class="footer-heading text-uppercase ">Information</h6>
+                        <ul class="list-unstyled footer-link mt-4">
+                            <li><a href="">About Us</a></li>
+                            <li><a href="">Focus</a></li>
+                            <li><a href="">Plans</a></li>
+                            <li><a href="">Pricing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="">
+                        <h6 class="footer-heading text-uppercase">Resources</h6>
+                        <ul class="list-unstyled footer-link mt-4">
+                            <li><a href="">Food List</a></li>
+                            <li><a href="">Food Categories</a></li>
+                            <li><a href="">Term &amp; Service</a></li>
+                            <li><a href="">WhatsApp</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="">
+                        <h6 class="footer-heading text-uppercase">Help</h6>
+                        <ul class="list-unstyled footer-link mt-4">
+                            <li><a href="">Register</a></li>
+                            <li><a href="">Login</a></li>
+                            <li><a href="">Terms of Services</a></li>
+                            <li><a href="">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="">
+                        <h6 class="footer-heading text-uppercase">Contact Us</h6>
+                        <p class="contact-info mt-4">Contact us if need help with anything</p>
+                        <p class="contact-info">+01 123-456-7890</p>
+                        <div class="mt-5">
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a href="#"><i class="fab facebook footer-social-icon fa-facebook-f"></i></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fab twitter footer-social-icon fa-twitter"></i></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fab google footer-social-icon fa-google"></i></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fab apple footer-social-icon fa-apple"></i></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+
+	
+	<!-- jQuery -->
+	<script src='{% static "js/jquery.min.js" %}'></script>
+	<!-- jQuery Easing -->
+	<script src='{% static "js/jquery.easing.1.3.js" %}'></script>
+	<!-- Bootstrap -->
+	<script src='{% static "js/bootstrap.min.js" %}'></script>
+	<!-- Bootstrap DateTimePicker -->
+	<script src='{% static "js/moment.js" %}'></script>
+	<script src='{% static "js/bootstrap-datetimepicker.min.js" %}'></script>
+	<!-- Waypoints -->
+	<script src='{% static "js/jquery.waypoints.min.js" %}'></script>
+	<!-- Stellar Parallax -->
+	<script src='{% static "js/jquery.stellar.min.js" %}'></script>
+
+	<!-- Flexslider -->
+	<script src='{% static "js/jquery.flexslider-min.js" %}'></script>
+	<script>
+		$(function () {
+	       $('#date').datetimepicker();
+	   });
+	</script>
+	<!-- Main JS -->
+	<script src='{% static "js/main.js" %}'></script>
+	<!--Navbar-->
+	<script src='{% static "js/navbar.js" %}'></script>
+
+	</body>
+</html>
+

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}SAS Fat To Slim | {{ title }}{% endblock %}
+
+{% block body %}
+<div class="py-4 mt-auto">
+    <div class="container px-4">
+
+        <!-- Iterate over categories -->
+        {% for category in categories %}
+        <div class="text-center mb-4">
+            <p class="h2 text-dark text-capitaliz font-weight-bold">{{ category.category_name }}</p>
+        </div>
+        <div class="row justify-content-center">
+            <!-- Filter food items by category -->
+            {% for food in foods %}
+            {% if food.category == category %}
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                <div class="card h-100" data-aos="zoom-in" data-aos-duration="1000">
+                    <!-- Food image -->
+                    <a href="#">
+                        <img 
+                            src="{{ food.image.image.url|default:'../../static/images/no_image.png' }}" 
+                            class="card-img-top" 
+                            alt="food image"
+                        >
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <!-- Food name -->
+                            <strong>{{ food.food_name }}</strong>
+                        </h5>
+                        <p class="card-text">
+                            <!-- Food category -->
+                            Category: {{ food.category }}
+                        </p>
+                        <p class="card-text">
+                            <!-- Food calories -->
+                            <strong>{{ food.calories }} calories</strong> in {{ food.quantity|floatformat:0 }} grams
+                        </p>
+                        <div class="text-center">
+                            <a href="{% url 'food_details' food.id %}" class="btn btn-primary">View details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

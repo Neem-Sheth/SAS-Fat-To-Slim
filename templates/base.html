@@ -1,0 +1,240 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>{% block title %}Food Tracker{% endblock %}</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href='{% static "images/logo.jpg" %}'
+    /> 
+
+    <!-- Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet" />
+
+    <!-- Custom styles -->
+    <link href='{% static "css/styles.css" %}' rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <!-- index -->
+    <script src='{% static "js/modernizr-2.6.2.min.js" %}'></script>
+    	<!-- Animate.css -->
+    <link rel="stylesheet" href='{% static "css/animate.css" %}'>
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href='{% static "css/icomoon.css" %}'>
+    <!-- Simple Line Icons -->
+    <link rel="stylesheet" href='{% static "css/simple-line-icons.css" %}'>
+    <!-- Datetimepicker -->
+    <link rel="stylesheet" href='{% static "css/bootstrap-datetimepicker.min.css" %}'>
+    <!-- Flexslider -->
+    <link rel="stylesheet" href='{% static "css/flexslider.css" %}'>
+    <!-- Bootstrap  -->
+    {% comment %} <link rel="stylesheet" href='{% static "css/bootstrap.css" %}'> {% endcomment %}
+
+    <link rel="stylesheet" href='{% static "css/style.css" %}'>
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic|Merriweather:300,400italic,300italic,400,700italic' rel='stylesheet' type='text/css'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js"></script>
+
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXX-Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NFJNSPTPDY');
+  </script> 
+  
+</head>
+
+<style>
+  .navbar-brand-image {
+    height: 70px; /* Adjust as needed */
+    width: auto;
+    margin-right: 5px;
+  }
+</style>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'images/logo.jpg' %}" alt="" class="navbar-brand-image"> Food Tracker
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarColor"
+          aria-controls="navbarColor"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'food_list' %}">
+                <i class="fas fa-list"></i> Food List
+              </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-pizza-slice"></i> Food Categories
+              </a>
+              <div class="dropdown-menu">
+                {% for category in categories %}
+                <a
+                  class="dropdown-item"
+                  href="{% url 'category_details_view' category.category_name %}"
+                >
+                  {{ category }} &nbsp;
+                  <span class="badge bg-dark">
+                    {{ category.count_food_by_category }}
+                  </span>
+                </a>
+                {% endfor %}
+              </div>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'food_add' %}">
+                <i class="far fa-plus-square"></i> Add Food Item
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'food_log' %}">
+                <i class="fas fa-utensils"></i> Food Log
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+
+          <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"  
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user fa-fw fa-lg"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="{% url 'weight_log' %}">
+                  <i class="fas fa-user"></i> User Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}">
+                  <i class="fas fa-sign-out-alt"></i> Log Out
+                </a>
+              </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">
+                <i class="fas fa-sign-in-alt"></i> Log In
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">
+                <i class="fas fa-user-plus"></i> Register
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    
+
+
+    <main>
+      <div class="container">{% block body %} {% endblock %}</div>
+    </main>
+
+    <footer class="py-4">
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="text-center">
+          Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          TechMill
+        </div>
+      </div>
+    </footer>
+
+    {% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+	<script src='{% static "js/jquery.min.js" %}'></script>
+	<!-- jQuery Easing -->
+	<script src='{% static "js/jquery.easing.1.3.js" %}'></script>
+	<!-- Bootstrap -->
+	<script src='{% static "js/bootstrap.min.js" %}'></script>
+	<!-- Bootstrap DateTimePicker -->
+	<script src='{% static "js/moment.js" %}'></script>
+	<script src='{% static "js/bootstrap-datetimepicker.min.js" %}'></script>
+	<!-- Waypoints -->
+	<script src='{% static "js/jquery.waypoints.min.js" %}'></script>
+	<!-- Stellar Parallax -->
+	<script src='{% static "js/jquery.stellar.min.js" %}'></script>
+
+	<!-- Flexslider -->
+	<script src='{% static "js/jquery.flexslider-min.js" %}'></script>
+	<script>
+		$(function () {
+	       $('#date').datetimepicker();
+	   });
+	</script>
+	<!-- Main JS -->
+	<script src='{% static "js/main.js" %}'></script>
+	<!--Navbar-->
+	<script src='{% static "js/navbar.js" %}'></script>
+
+  <script>
+    AOS.init();
+  </script>
+
+    {% endblock %}
+  </body>
+</html>
