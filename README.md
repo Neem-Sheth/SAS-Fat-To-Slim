@@ -50,12 +50,6 @@ python -m venv venv
 
 From the **root** directory, run:
 
-On macOS:
-
-```bash
-source venv/bin/activate
-```
-
 On Windows:
 
 ```bash
@@ -104,23 +98,22 @@ To quit **psql**, run:
 
 #### 5. Set up environment variables
 
-From the **root** directory, run:
+From the **root** directory,:
 
-```bash
-touch .env
-```
+Create the **.env** file manually by navigating in Visual Studio Code to the Explorer and selecting the option **New File**.
 
-The **touch** command will create the **.env** file in the **root** directory. This command works on Mac and Linux but not on Windows. If you are a Windows user, instead of using the command line, you can create the **.env** file manually by navigating in Visual Studio Code to the Explorer and selecting the option **New File**.
-
-Next, declare environment variables in the **.env** file. Make sure you don't use quotation marks around the strings.
+Next, declare environment variables in the **.env** file. Make sure you don't use quotation marks around the strings. Add appropriate Twilio Credentials for Twilio Whatsapp API.
 
 ```bash
 SECRET_KEY=yoursecretkey
 DEBUG=True
 DATABASE_NAME=food
-DATABASE_USER=yourusername
-DATABASE_PASS=yourpassword
+DATABASE_USER=
+DATABASE_PASS=
 DATABASE_HOST=localhost
+
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
 ```
 
 #### 6. Run migrations
@@ -154,21 +147,9 @@ From the **root** directory, run:
 python manage.py runserver
 ```
 
-
-### Run the tests
-
-From the **root** directory, run:
-
-```bash
-python manage.py test --pattern="tests.py"
-
-```
-
-
 ### View the application
 
 Go to http://127.0.0.1:8000/ to view the application.
-
 
 ### Add data to the application
 
