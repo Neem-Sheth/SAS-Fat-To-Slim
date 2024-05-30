@@ -23,7 +23,7 @@ ALLOWED_HOSTS = [
 # TWILIO_AUTH_TOKEN = env("TWILIO_AUTH_TOKEN")
 # TWILIO_NUMBER = env("MY_TWILIO_NUMBER")
 # SMS_BROADCAST_TO_NUMBERS = [
-#    "+918347669353",
+#    "",
 #  ]
 
 # Application definition

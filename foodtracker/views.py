@@ -83,8 +83,8 @@ def login_view(request):
         })
 
 
-# TWILIO_ACCOUNT_SID='AC3d59f402cb88c98ee578aea22848083d'
-# TWILIO_AUTH_TOKEN='1197289632073f0aa812143a14a832d3'
+# TWILIO_ACCOUNT_SID=
+# TWILIO_AUTH_TOKEN=
 
 
 def logout_view(request):
