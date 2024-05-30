@@ -102,7 +102,8 @@ From the **root** directory,:
 
 Create the **.env** file manually by navigating in Visual Studio Code to the Explorer and selecting the option **New File**.
 
-Next, declare environment variables in the **.env** file. Make sure you don't use quotation marks around the strings. Add appropriate Twilio Credentials for Twilio Whatsapp API.
+Next, declare environment variables in the **.env** file. Make sure you don't use quotation marks around the strings. 
+Add appropriate Twilio Credentials for Twilio Whatsapp API.
 
 ```bash
 SECRET_KEY=yoursecretkey
