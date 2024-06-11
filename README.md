@@ -1,6 +1,6 @@
 # Food Tracker
 
-This is a food-tracking application built using **Django 4**, **HTML 5**, **CSS 3**, and **Bootstrap 5** with a **Bootswatch** theme. The app uses a **PostgreSQL** database to store data. Charts were built using **Chart.js 2**.
+This is a food-tracking application built using **Django 4**, **HTML 5**, **CSS 3** and **Bootstrap 5** with a **Bootswatch** theme. The app uses a **PostgreSQL** database to store data. Charts were built using **Chart.js 2**. And the customizable admin panel using **Jazzmin**.
 
 ![Screenshot 2024-03-24 114038](https://github.com/Neem-Sheth/SAS-Fat-To-Slim---Techmill/assets/124123479/1d2e5f49-e176-4cc0-94f7-a718b8e52285)
 
